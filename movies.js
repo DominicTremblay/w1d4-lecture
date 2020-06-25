@@ -30,27 +30,7 @@ const movies = [
 ];
 
 // Let's use our filter function!
-const filter = function(list, callback) {
-  // define a placeholder for the result
-  const filteredList = [];
-
-  // iterate throught the list
-
-  for (let item of list) {
-    // check that the number is div by three, add it
-    if (callback(item)) {
-      filteredList.push(item);
-    }
-  }
-
-  // return the result
-  return filteredList;
-};
 
 // EXAMPLE 1: Get the movies with highest ratings
-const highestRatingMovies = filter(movies, movieObj => movieObj.rating >= 8);
-// console.log(highestRatingMovies);
 
 // EXAMPLE 2: Get the movies with the genre 'Comedy'
-
-const comedies = filter(movies, movieObj => movieObj.genre === 'Comedy');
