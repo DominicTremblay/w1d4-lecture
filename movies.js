@@ -1,3 +1,6 @@
+// Exercises found at:
+// https://gist.github.com/DominicTremblay/c201e637cfaec43fe5ec92cee4ba899d
+
 const movies = [
   { title: 'Black Panther', year: 2018, genre: 'action', rating: 7.4 },
   { title: 'Avengers Infinity War', year: 2018, genre: 'action', rating: 8.5 },
@@ -30,27 +33,7 @@ const movies = [
 ];
 
 // Let's use our filter function!
-const filter = function(list, callback) {
-  // define a placeholder for the result
-  const filteredList = [];
-
-  // iterate throught the list
-
-  for (let item of list) {
-    // check that the number is div by three, add it
-    if (callback(item)) {
-      filteredList.push(item);
-    }
-  }
-
-  // return the result
-  return filteredList;
-};
 
 // EXAMPLE 1: Get the movies with highest ratings
-const highestRatingMovies = filter(movies, movieObj => movieObj.rating >= 8);
-// console.log(highestRatingMovies);
 
 // EXAMPLE 2: Get the movies with the genre 'Comedy'
-
-const comedies = filter(movies, movieObj => movieObj.genre === 'Comedy');
