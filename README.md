@@ -6,7 +6,8 @@
 - Function declaration vs function expressions
 - Higher-Order Functions
 - Callbacks
-  - Single Responsability Principle
+- Arrow Functions
+- Single Responsability Principle
 
 
 ## Debugging
@@ -250,12 +251,85 @@ const highestRatings = filter(movies, function(movie) {
 console.log(highestRatings);
 ```
 
-Or with arrow function:
+// Create a new array with a different format
 
 ```js
-const highestRatings = filter(movies, movie => movie.rating >= 8);
+const update = function(list, callback) {
+  const updatedList = [];
+  for (let i = 0; i < list.length; i++) {
+    updatedList.push(callback(list[i]));
+  }
+  return updatedList;
+};
+
+const movieTitles = update(movies, function(movieObj) {
+  return `${movieObj.title} - ${movieObj.year} - ${movieObj.rating}`;
+});
+console.log(movieTitles);
 ```
 
+// Get the average ratings
+
+```js
+const averageRatings = function(list) {
+  let sum = 0;
+  for (let i = 0; i < list.length; i++) {
+    sum += movies[i].rating;
+  }
+
+  return Math.round((sum / movies.length) * 100) / 100;
+};
+
+const avg = averageRatings(movies);
+console.log('Average ratings: ', avg);
+```
+
+// Get the movie with the highest rating
+
+```js
+const maxRating = function(list) {
+  let maxMovie = list[0];
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].rating > maxMovie.rating) {
+      maxMovie = list[i];
+    }
+  }
+  return maxMovie;
+};
+```
+
+// Build a more generic accumulate function
+
+```js
+const accumulate = function(list, callback, start = 0) {
+  let accumulator = start;
+
+  for (let i = 0; i < list.length; i++) {
+    accumulator = callback(accumulator, list[i]);
+  }
+
+  return accumulator;
+};
+
+const total = accumulate(movies, function(total, movieObj) {
+  return (total += Math.round(movieObj.rating));
+});
+
+const maxRating = accumulate(
+  movies,
+  function(max, movieObj) {
+    if (movieObj.rating > max.rating) {
+      return movieObj;
+    } else {
+      return max;
+    }
+  },
+  movies[0]
+);
+
+console.log('Total: ', total / movies.length);
+console.log('Max: ', maxRating);
+```
 
 ## Origin of Callbacks
 
