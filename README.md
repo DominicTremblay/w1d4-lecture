@@ -51,148 +51,123 @@ const getCharacter = function() {
 
 ## Callbacks
 
-- Suppose we want to get an array of all the numbers that are divisible by three, we can use the following function:
+- Suppose we want to create a function that will give me only the 3 letter words, we can use the following function:
 
 ```js
-const divByThree = function(list) {
-  const filteredList = [];
-  for (let i = 0; i < list.length; i++) {
-    if (list[i] % 3 == 0) {
-      filteredList.push(list[i]);
+const threeLetterWords = function (wordsArr) {
+  // define an array that will hold the result
+  const threeLettersArr = [];
+
+  // iterate throught the words arr
+  for (let word of wordsArr) {
+    // condition: is the length of the current word === 3?
+    if (word.length === 3) {
+      // if yes -> add it to the result array
+      threeLettersArr.push(word);
     }
   }
-  return filteredList;
-};
 
-divByThree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]); // [3,6,9]
-```
-
-- Now this works, but what if we want the numbers that are divisible by five, we would have to code another function.
-
-```js
-const divByFive = function(list) {
-  const filteredList = [];
-  for (let i = 0; i < list.length; i++) {
-    if (list[i] % 5 == 0) {
-      filteredList.push(list[i]);
-    }
-  }
-  return filteredList;
+  // return result array
+  return threeLettersArr;
 };
 ```
 
-- And we would repeat the function if we need the numbers that are divisible by two.
+- Now this works, but what if we want the 4 letter words, we would have to code another function.
+
+```js
+const fourLetterWords = function (wordsArr) {
+  // define an array that will hold the result
+  const threeLettersArr = [];
+
+  // iterate throught the words arr
+  for (let word of wordsArr) {
+    // condition: is the length of the current word === 3?
+    if (word.length === 4) {
+      // if yes -> add it to the result array
+      threeLettersArr.push(word);
+    }
+  }
+
+  // return result array
+  return threeLettersArr;
+};
+```
+
+- And we would repeat the function if we need 5,6,7, or 8 letter words
 - When we repeat code, it means we're not following the DRY principle
 
 - What if we want to make it more reusable. Let's generalize the function by adding a parameter:
 
 ```js
-const divBy = function(list, div) {
-  const filteredList = [];
-  for (let i = 0; i < list.length; i++) {
-    if (list[i] % div == 0) {
-      filteredList.push(list[i]);
+const isRightLength = function (word, length) {
+  return word.length === length;
+}
+
+const startsLetter = function(word, letter) {
+  return word[0] === letter
+}
+
+const getFixLengthWord = function (wordsArr, length) {
+
+  // length=8
+  // define an array that will hold the result
+  const fixedLengthWords = [];
+
+  // iterate throught the words arr
+  for (let word of wordsArr) {
+    // condition: is the length of the current word === 3?
+    if (word.length === lenght) {
+      // if yes -> add it to the result array
+      fixedLengthWords.push(word);
     }
   }
-  return filteredList;
-};
 ```
 
-- This version is much more reusable because it works with any number
+- This version is much more reusable because it works with any length of words
 - How do we generalize the function even more by providing the desired functionality as a parameter?
 - Let's make a general filter function that works with any kind of filter by using a callback function:
 
 ```js
 const filter = function(list, callback) {
 
-//   const callback =function(nb) {
-//   return nb % 3 === 0
-// }
+  const filteredItems = [];
 
-// const callback = const smallNb = function(nb) {
-//   return nb <= 5
-// }
-
-
-
-  const filteredList = [];
-
-// loop over the array (forEach, For of, for i)
-
-// check if it is divByThree
-  for (let i=0; i< list.length; i++) {
-    // console.log('i',i, 'div',div, 'nb',list[i])
-    if(callback(list[i])) {
-    // push the value in an array
-      filteredList.push(list[i]);
+  for (let item of list) {
+    if (callback(item)) {
+      filteredItems.push(item);
     }
-
   }
-// return the new array
-// console.log('list', filteredList)
-  return filteredList;
+  return filteredItems;
 }
-
-const divByThree = function(nb) {
-  return nb % 3 === 0
-}
-
-// arrow function syntax
-const divByFive = nb => return nb % 5 === 0
-
-// function declaration
-function smallNb(nb) {
-  return nb <= 5
-}
-
-filter([1,2,3,4,5,6,7,8,9,10], smallNb)//  [1,2,3,4,5]
-
-// using a function inline
-filter([1,2,3,4,5,6,7,8,9,10], function(nb) {
-  return nb > 5
-})
-
-// arrow function
-filter([1,2,3,4,5,6,7,8,9,10], (nb) => return nb > 5)
-
-
-const list = [1,2,3,4,5,6,7,8,9,10];
-
-// built-in javascript filter fct
-list.filter(function(nb) {
-  return nb > 5
-})
-
-
 ```
 
-- To get the same result as the divisibleByThree function, we are providing the following **callback**:
+- To get the same result as the threeLetterWords function, we are providing the following **callback**:
 
 ```js
-const isDivByThree = function(number) {
-  return number % 3 === 0;
-};
+const isThreeLetter = function(word) {
+  return word.length === 3;
+}
 ```
 
 - And we call the filter function using the callback:
 
 ```js
-filter(numbers, isDivByThree);
+filter(numbers, isThreeLetter);
 ```
 
 - Or we can simply create an anonymous function as an argument:
 
 ```js
-filter(numbers, function(number) {
-  return number % 3 === 0;
+filter(numbers, function(word) {
+  return word.length === 3;
 });
 ```
 
 - In fact, we can pass any function to create any filter we want:
 
 ```js
-filter(numbers, function(number) {
-  number > 15;
+filter(numbers, function(word) {
+  return word[0] === 'c';
 });
 ```
 
@@ -256,39 +231,3 @@ Or with arrow function:
 const highestRatings = filter(movies, movie => movie.rating >= 8);
 ```
 
-
-## Origin of Callbacks
-
-1. JavaScript is an event driven language
-
-2. A callback function is required when a specific task of event has finished. We can see what is going on with a tool called [Loupe](http://latentflip.com/loupe/)
-
-3. More generally, callbacks are used with asynchronous code
-
-We used the event on the logo on the page to trigger an alert, which is inside a callback function:
-
-```js
-logo.addEventListener('click', function(e) {
-  alert('click');
-});
-```
-
-Also we did an example of an http request - [./request/index.js](code here)
-
-## Summary
-
-- In JavaScript, functions are first-class objects (or first-class citizens) ie they can be treated like any other values
-
-  1. Functions can be assigned to a variable (function expression) or to a property of an object
-  2. Passed as arguments into functions
-  3. Returned as values from functions
-
-- A function that accepts (or return) a function as arguments is called a higher-order function
-
-- In JavaScript, a callback is a function passed as an argument to another function
-
-- The benefit of having higher-order function is that each functions (the higher-order fct and the callback) has a single responsability
-
-- IOW, the benefit of a higher-order functions (a function that takes a callback) is a highly reusable function allowing our code to stay DRY!
-
-- Callbacks are also used when running asynchronous code.
