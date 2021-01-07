@@ -33,7 +33,43 @@ const movies = [
 ];
 
 // Let's use our filter function!
+// higher-order function
+const filter = function (list, callback) {
+  const output = [];
+
+  for (let item of list) {
+    if (callback(item)) {
+      output.push(item);
+    }
+  }
+
+  return output;
+};
+
 
 // EXAMPLE 1: Get the movies with highest ratings
 
+const bestMovie = (movieObj) => movieObj['rating'] > 8;
+
+
+
+// const result = filter(movies, bestMovie);
+// console.log(result);
+
 // EXAMPLE 2: Get the movies with the genre 'Comedy'
+
+// const getComedy = function(movieObj) {
+//   return movieObj.genre === 'Comedy';
+// }
+
+// Arrow function version
+const getComedy = (movieObj) => movieObj.genre === 'Comedy';
+
+
+// const result = filter(movies, getComedy);
+
+const result = filter(movies, movieObj => movieObj['rating'] > 8);
+
+// built-in filer
+// const result = movies.filter((movieObj) => movieObj.genre === 'Comedy');
+console.log(result);
