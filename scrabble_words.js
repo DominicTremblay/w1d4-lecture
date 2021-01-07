@@ -5,7 +5,12 @@ const sixLetterWords = ['agents','backup','babels','barbel','braces','cables','c
 const sevenLetterWords = ['airport','amazing','android','battery','alcohol','cameras','circuit','desktop'];
 const eightLetterWords = ['clicking','comments','computer','concepts','download','feedback','graphics','hardware'];
 
-const words = threeLetterWords.concat(fourLetterWords).concat(fiveLetterWords).concat(sixLetterWords).concat(sevenLetterWords).concat(eightLetterWords);
+const words = threeLetterWords
+              .concat(fourLetterWords)
+              .concat(fiveLetterWords)
+              .concat(sixLetterWords)
+              .concat(sevenLetterWords)
+              .concat(eightLetterWords);
 
 const shuffleWords = words.sort(() => Math.random() - 0.5);
 
