@@ -7,6 +7,7 @@
 - Higher-Order Functions
 - Callbacks
   - Single Responsability Principle
+- Arrow functions
 
 
 ## Debugging
