@@ -48,8 +48,9 @@ const filter = function (list, callback) {
 
 
 // EXAMPLE 1: Get the movies with highest ratings
-
+// rating > 8
 
 
 
 // EXAMPLE 2: Get the movies with the genre 'Comedy'
+// genre === comedy
